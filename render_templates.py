@@ -77,10 +77,11 @@ def jinja_render_hydro_part_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of particle structs to be generated.
         Each key shall return a dict with two keys:
-            - "API": containing a list of strings containing C-code for the
-              particle field API
-            - "DECLARATIONS": containing a list of strings containing C-code
-              for the particle field declarations
+
+        - "API": containing a list of strings containing C-code for the
+          particle field API
+        - "DECLARATIONS": containing a list of strings containing C-code
+          for the particle field declarations
 
     metadata_d: dict
         dict containing particle (flavour) metadata
@@ -89,7 +90,7 @@ def jinja_render_hydro_part_dot_h(
         if True, generate headers compatible with swift, not swiftgpupacksim
 
     manual_struct_align: bool
-        if True, generate a different SWIFT_STRUCT_ALIGN_ macro for each struct.
+        if True, generate a different ``SWIFT_STRUCT_ALIGN_`` macro for each struct.
 
     explicit_var_accessors: bool
         if True, generate getters/setters which use explicitly passed pointer
@@ -167,8 +168,8 @@ def jinja_render_parts_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of particle data structs to be generated.
         Each key shall return a dict with two keys:
-            - "DOC": Struct documentation, if available
-            - "HAS_DOC": bool saying whether struct documentation is available
+        - "DOC": Struct documentation, if available
+        - "HAS_DOC": bool saying whether struct documentation is available
 
     metadata_d: dict
         dict containing particle (flavour) metadata
@@ -225,8 +226,8 @@ def jinja_render_hydro_part_arrays_struct_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of particle data structs to be generated.
         Each key shall return a dict with two keys:
-            - "DOC": Struct documentation, if available
-            - "HAS_DOC": bool saying whether struct documentation is available
+        - "DOC": Struct documentation, if available
+        - "HAS_DOC": bool saying whether struct documentation is available
 
     metadata_d: dict
         dict containing particle (flavour) metadata
@@ -281,8 +282,8 @@ def jinja_render_hydro_part_arrays_flush_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of particle data structs to be generated.
         Each key shall return a dict with two keys:
-            - "DOC": Struct documentation, if available
-            - "HAS_DOC": bool saying whether struct documentation is available
+        - "DOC": Struct documentation, if available
+        - "HAS_DOC": bool saying whether struct documentation is available
 
     metadata_d: dict
         dict containing particle (flavour) metadata
@@ -343,10 +344,11 @@ def jinja_render_timestep_limiter_struct_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of struct to be generated.
         Each key shall return a dict with two keys:
-            - "API": containing a list of strings containing C-code for the
-              particle field API
-            - "DECLARATIONS": containing a list of strings containing C-code
-              for the particle field declarations
+
+        - "API": containing a list of strings containing C-code for the
+          particle field API
+        - "DECLARATIONS": containing a list of strings containing C-code
+          for the particle field declarations
 
     metadata_d: dict
         dict containing file metadata, as read-in from the yml file (and postprocessed)
@@ -430,10 +432,11 @@ def jinja_render_rt_struct_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of struct to be generated.
         Each key shall return a dict with two keys:
-            - "API": containing a list of strings containing C-code for the
-              particle field API
-            - "DECLARATIONS": containing a list of strings containing C-code
-              for the particle field declarations
+
+        - "API": containing a list of strings containing C-code for the
+          particle field API
+        - "DECLARATIONS": containing a list of strings containing C-code
+          for the particle field declarations
 
     metadata_d: dict
         dict containing file metadata, as read-in from the yml file (and postprocessed)
@@ -514,10 +517,11 @@ def jinja_render_top_level_hydro_part_dot_h(
         dict containing processed data ready to be inserted into the template.
         The dict's keys shall be names of struct to be generated.
         Each key shall return a dict with two keys:
-            - "API": containing a list of strings containing C-code for the
-              particle field API
-            - "DECLARATIONS": containing a list of strings containing C-code
-              for the particle field declarations
+
+        - "API": containing a list of strings containing C-code for the
+          particle field API
+        - "DECLARATIONS": containing a list of strings containing C-code
+          for the particle field declarations
 
     inputfiles: list
         list of yml files read as input

@@ -69,6 +69,6 @@ for FLAVOUR in \
   "SPHENIX" \
 ; do
 
-  ./generate_hydro_part.py --global-var-access --swift --full input/hydro/"$FLAVOUR".yml -o "$OUTPUTDIR"
+  python3 swiftpartgen.py --global-var-access --swift --full input/hydro/"$FLAVOUR".yml -o "$OUTPUTDIR"
 
 done

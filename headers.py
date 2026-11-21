@@ -51,7 +51,7 @@ def generate_hydro_part_dot_h(
         and a debugging check in each getter/setter
 
     manual_align: bool
-        if True, generate a different SWIFT_STRUCT_ALIGN_ macro for each struct.
+        if True, generate a different ``SWIFT_STRUCT_ALIGN_`` macro for each struct.
 
     explicit_var_accessors: bool
         if True, generate getters/setters which use explicitly passed pointer
@@ -146,9 +146,11 @@ def generate_parts_dot_h(
 ) -> str:
     """
     Generate a parts.h, which contains:
-    - `init_part_arrays()`, function to allocate memory for all
+
+    - ``init_part_arrays()``, function to allocate memory for all
       arrays in `struct part_arrays`
-    - `clear_parts()`, function to free all data allocated in `init_part_arrays()`
+    - ``clear_parts()``, function to free all data allocated in
+      ``init_part_arrays()``
 
     Parameters
     ----------

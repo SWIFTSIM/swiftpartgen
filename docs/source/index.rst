@@ -24,3 +24,4 @@ Get it on `github <https://github.com/SWIFTSIM/swiftpartgen>`_.
    output
    yaml_specification
    developer_notes
+   code_documentation

@@ -56,3 +56,11 @@ doesn't find them, it will ask you to provide a path. You can do that using the
    ``swiftgpupacksim/sim/``.
 
 
+
+
+
+Verbosity
+----------
+
+Check ``verbosity.py`` for helper functions around ``--verbose`` and
+``--debug`` output to ``stdout`` while running ``swiftpartgen``.
