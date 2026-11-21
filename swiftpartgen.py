@@ -51,6 +51,14 @@ parser.add_argument(
     help="Generate output compatible for swift, not for swiftgpupacksim",
 )
 parser.add_argument(
+    "-G",
+    "--gpupacksim",
+    dest="swiftgpupacksim",
+    action="store_true",
+    default=False,
+    help="Generate output compatible for swiftgpupacksim, not for swift",
+)
+parser.add_argument(
     "-d",
     "--dry-run",
     dest="dry_run",
@@ -129,7 +137,8 @@ parser.add_argument(
 if __name__ == "__main__":
 
     args = parser.parse_args()
-    swift_header = args.swift
+    swiftgpupacksim_header = args.swiftgpupacksim
+    swift_header = args.swift or (not swiftgpupacksim_header)
     input_file = args.input_file
     explicit_var_accessors = args.explicit_var_accessors
     global_var_accessors = args.global_var_accessors
@@ -163,6 +172,13 @@ if __name__ == "__main__":
             + " You must select at least one."
         )
 
+    if (swift_header and swiftgpupacksim_header):
+        raise ValueError("Can't run both with --swift and --gpupacksim, pick one.")
+
+    if (swiftgpupacksim_header and full_output):
+        raise ValueError("Requested --gpupacksim and --full output. Not sure what to do with that.")
+
+
     # ---------------------------------------
     # advertise what we're doing.
     # ---------------------------------------
@@ -178,6 +194,7 @@ if __name__ == "__main__":
     print(f"Output directory:                            {outdir}")
     print(f"Particle input file:                         {input_file}")
     print(f"Accessor type:                               {accessor_type}")
+    print(f"SWIFT headers?:                              {swift_header}")
     print(f"Dry run?                                     {dry_run}")
     print(f"Outputs for unit tests?                      {testing}")
     print(f"Generate files besides src/hydro/<flavour>/? {full_output}")

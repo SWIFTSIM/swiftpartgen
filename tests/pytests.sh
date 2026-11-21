@@ -26,7 +26,7 @@ Options:
 
 -s, --swift :                 When testing whether particle file outputs are
                               valid C code, write SWIFT headers.
--g, --swiftgpupacksim :       When testing whether particle file outputs are
+-G, --gpupacksim :            When testing whether particle file outputs are
                               valid C code, write SWIFTGPUPACKSIM headers.
 
 -i <path>, --include <path> : path to a SWIFT or SWIFTGPUPACKSIM directory.
@@ -64,7 +64,7 @@ while [[ $# > 0 ]]; do
       USE_SWIFT_HEADERS="true"
     ;;
 
-    -g | --swiftgpupacksim)
+    -G | --gpupacksim)
       USE_SWIFTGPUPACKSIM_HEADERS="true"
     ;;
 
@@ -162,7 +162,7 @@ fi
 
 if [ "$USE_SWIFTGPUPACKSIM_HEADERS" == "true" ]; then
 
-  HEADER_TYPE_FLAG=""
+  HEADER_TYPE_FLAG="--gpupacksim"
   DIFF_PREFIX="output/swiftgpupacksim"
 
   if [ "$INCDIR" == "" ]; then
@@ -309,8 +309,8 @@ if [[ "$RUN_API_GEN_TESTS" == "true" ]]; then
       echo "running $testcase $flag"
       echo "==============================================="
 
-      echo python3 ../../py/swiftpartgen.py --test "$flag" $HEADER_TYPE_FLAG ./input/"$testcase".yml
-      python3 ../../py/swiftpartgen.py --test "$flag" $HEADER_TYPE_FLAG ./input/"$testcase".yml
+      echo python3 ../swiftpartgen.py --test "$flag" $HEADER_TYPE_FLAG ./input/"$testcase".yml
+      python3 ../swiftpartgen.py --test "$flag" $HEADER_TYPE_FLAG ./input/"$testcase".yml
       COMPILE_AND_RUN
 
       if [ "$flag" == "--part-struct-accessor" ]; then
@@ -347,7 +347,8 @@ if [[ "$RUN_HEADER_INCLUSION_TESTS" == "true" ]]; then
     echo "running $testcase $flag"
     echo "==============================================="
 
-    python3 ../../py/swiftpartgen.py --part-struct-accessors --test $HEADER_TYPE_FLAG ./input/"$testcase".yml
+    echo python3 ../swiftpartgen.py --part-struct-accessors --test $HEADER_TYPE_FLAG ./input/"$testcase".yml
+    python3 ../swiftpartgen.py --part-struct-accessors --test $HEADER_TYPE_FLAG ./input/"$testcase".yml
     COMPILE_AND_RUN
 
     # cp ./hydro_part.h "$DIFF_PREFIX"/"$testcase".h
@@ -408,8 +409,8 @@ if [[ "$RUN_PART_OUTPUT_COMPILE_TESTS" == "true" ]]; then
       #   DEFINES+=" -DEOS_PLANETARY"
       # fi
 
-      echo python3 ../../py/swiftpartgen.py $ACCESSOR_FLAG --full $HEADER_TYPE_FLAG input/hydro/"$FLAVOUR".yml
-      python3 ../../py/swiftpartgen.py $ACCESSOR_FLAG --full $HEADER_TYPE_FLAG input/hydro/"$FLAVOUR".yml
+      echo python3 ../swiftpartgen.py $ACCESSOR_FLAG --full $HEADER_TYPE_FLAG input/hydro/"$FLAVOUR".yml
+      python3 ../swiftpartgen.py $ACCESSOR_FLAG --full $HEADER_TYPE_FLAG input/hydro/"$FLAVOUR".yml
       COMPILE_AND_RUN_PARTICLE "$DEFINES"
     done
   done
