@@ -23,7 +23,7 @@ The python package dependencies are listed in ``swiftpartgen/requirements.txt``.
 You can install them using
 
 ```
-   pip3 install [--user] requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
@@ -34,13 +34,6 @@ Documentation
 The documentation can be found online as a [github page](https://swiftsim.github.io/swiftpartgen/).
 It is also part of this repository. To build a ``html`` version, do the
 following:
-
-```
-cd docs
-make html
-```
-
-or
 
 ```
 sphinx-build docs/source docs/build
