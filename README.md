@@ -31,14 +31,22 @@ You can install them using
 Documentation
 -------------
 
-The documentation is part of this repository. To build a ``html`` version:
+The documentation can be found online as a [github page](https://swiftsim.github.io/swiftpartgen/).
+It is also part of this repository. To build a ``html`` version, do the
+following:
 
 ```
 cd docs
 make html
 ```
 
-The resulting documentation will be build in ``docs/build/index.html``.
+or
+
+```
+sphinx-build docs/source docs/build
+```
+
+The resulting documentation will be built in ``docs/build/index.html``.
 
 
 
