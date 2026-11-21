@@ -175,8 +175,8 @@ if __name__ == "__main__":
     if (swift_header and swiftgpupacksim_header):
         raise ValueError("Can't run both with --swift and --gpupacksim, pick one.")
 
-    if (swiftgpupacksim_header and full_output):
-        raise ValueError("Requested --gpupacksim and --full output. Not sure what to do with that.")
+    #  if (swiftgpupacksim_header and full_output):
+    #      raise ValueError("Requested --gpupacksim and --full output. Not sure what to do with that.")
 
 
     # ---------------------------------------
