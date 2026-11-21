@@ -1,5 +1,3 @@
-# SPHENIX SPH with the particle quantity ordering as in upstream/master
-
 # First, some metadata about this SPH flavour.
 metadata:
   flavour: "SPHENIX"
@@ -156,6 +154,10 @@ part:
     type: struct rt_timestepping_data
     doc: RT sub-cycling time stepping data
 
+  geometry:
+    type: struct fvpm_geometry_struct
+    doc: Geometrical quantities used for Finite Volume Particle Method RT
+
   depth_h:
     doc: Tree-depth at which size / 2 <= h * gamma < size
     type: char
@@ -253,10 +255,6 @@ part:
     doc: Has this particle been woken up by the limiter?
     ifdef: SWIFT_HYDRO_DENSITY_CHECKS
 
-  geometry:
-    type: struct fvpm_geometry_struct
-    doc: Geometrical quantities used for Finite Volume Particle Method RT
-
 
 xpart:
   doc: |
@@ -286,7 +284,7 @@ xpart:
     doc: "Internal energy at the last full step."
 
   extra_split_data:
-    type: struct particle_splitting_data split_data
+    type: struct particle_splitting_data
     doc: "Additional data used to record particle splits"
 
   extra_cooling_data:
