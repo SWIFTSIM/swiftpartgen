@@ -48,8 +48,8 @@ such as:
 - ``doc``: File documentation. What will go in the ``/** @file`` doxygen
   documentation of the file.
 - ``includes``: list of headers to include. If this field is not provided, a
-  default will be used, stored in ``input/hydro_default_headers_swift.h`` and
-  ``input/hydro/default_headers_swiftgpupacksim.h``, respectively.
+  default will be used, stored in ``input/hydro/default_hydro_headers_swift.h`` and
+  ``input/hydro/default_hydro_headers_swiftgpupacksim.h``, respectively.
 - ``includes_add``: Rather than providing a full list of includes, only add these
   to the default selection.
 
@@ -64,13 +64,13 @@ Here's an example metadata setup:
      doc: |                            # (Optional) file documentation
        This file contains X, Y, and Z.
      includes:                         # (Optional) headers to be included. If not provided, default 
-       - a.h                           #   headers will be used, read in from ``input/default_hydro_headers_swift.h``
-       - b.h                           #   or ``input/default_hydro_headers_swiftgpupacksim.h``. 
-       - <stdio.h>
+       - a.h                           #    headers will be used, read in from 
+       - b.h                           #    `input/hydro/default_hydro_headers_swift.h`
+       - <stdio.h>                     #    or `input/hydro/default_hydro_headers_swiftgpupacksim.h`.
      includes_add:                     # (Optional) Additional header files to include aside from the 
-       - a.h                           #   "default" ones (see ``includes`` field) 
-       - b.h                           # ! WARNING: Cannot be used together with ``includes`` parameter.
-       - <stdio.h>
+       - a.h                           #    "default" ones (see ``includes`` field) 
+       - b.h                           #  ! WARNING: Cannot be used together with `includes` parameter.
+       - <stdio.h> 
 
 
 
@@ -104,10 +104,10 @@ The general specification requirement is as follows:
    part_struct1_name:               # name of struct (e.g. 'part', 'density', 'force'...)
      field1_name:                   # name of particle field (e.g. 'x', 'm', 'h'...)
        type: DATA_TYPE              # (Optional) C data type of the field. E.g. float,
-                                    #   double, int, long long, timebin_t...
-                                    # ! WARNING: If not provided, defaults to 'float'. !
+                                    #     double, int, long long, timebin_t...
+                                    #   ! WARNING: If not provided, defaults to 'float'. !
        size: N                      # (Optional) If > 1, field is assumed to be fixed size array,
-                                    #   e.g. `DATA_TYPE field1_name[N];`
+                                    #     e.g. `DATA_TYPE field1_name[N];`
        doc: documentation text      # (Optional) Documentation of the particle data field.
 
      # some more concrete examples.
@@ -123,7 +123,7 @@ The general specification requirement is as follows:
 
 
    part_struct2_name:              # name of the second struct containing (parts
-                                   #  of) particle data.
+                                   #    of) particle data.
      field2_name:
        ... # etc etc
 
@@ -208,7 +208,7 @@ results in:
 .. code-block:: C
 
    parent_struct {
-     struct limiter_timestep_data limiter_data;
+     struct limiter_timestep_data timestep_data;
    };
 
 
@@ -233,6 +233,22 @@ To specify a union within a parent particle struct, use the following:
          b:
            type: double
            documentation: "the second field of union"
+
+This shoudl result in:
+
+.. code-block:: C
+
+   struct parent_struct {
+
+      union {
+        /*! the first field of union */
+        int _a;
+
+        /*! the second field of union */
+        double _b;
+      };
+
+   };
 
 
 The ``name_placeholder`` name will be unused in the resulting header file.
@@ -315,10 +331,8 @@ This results in:
 
    /* ... header and definitions... */
 
-   /**
-    * @brief get debug_counter.
-    */
-   static __attribute__((always_inline)) INLINE int part_get_debug_counter(const size_t pind) {
+   static __attribute__((always_inline)) INLINE int 
+      part_get_debug_counter(const size_t pind) {
    #ifdef SWIFT_DEBUG_CHECKS
      return p->_debug_counter;
    #else
@@ -326,10 +340,8 @@ This results in:
    #endif
    }
 
-   /**
-    * @brief get rt_time_bin.
-    */
-   static __attribute__((always_inline)) INLINE int part_get_rt_time_bin(const size_t pind) {
+   static __attribute__((always_inline)) INLINE int 
+      part_get_rt_time_bin(const size_t pind) {
    #ifndef RT_NONE
      return p->_rt_time_bin;
    #else
@@ -337,10 +349,8 @@ This results in:
    #endif
    }
 
-   /**
-    * @brief get collect_mpi.
-    */
-   static __attribute__((always_inline)) INLINE float part_get_collect_mpi(const size_t pind) {
+   static __attribute__((always_inline)) INLINE float 
+      part_get_collect_mpi(const size_t pind) {
    #ifdef WITH_MPI
      return p->_collect_mpi;
    #else
@@ -348,7 +358,7 @@ This results in:
    #endif
    }
 
-   # ... more getters and setters ...
+   /* ... more getters and setters ... */
 
 
 .. warning::
@@ -417,7 +427,60 @@ Splitting Particle Data Over Multiple Structs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You may want to split the particle data such that they are contained within
-multiple structs instead of a single one. To do so, some **restrictions** apply:
+multiple structs instead of a single one. To do so, simply add further groups at
+the same level as the ``struct part`` in your ``yaml`` parameter file, e.g. like
+
+
+.. code-block:: yaml
+
+   part:
+      field1:
+         type: double
+      field2:
+         type: float
+
+      # etc...
+
+   part_substruct1:
+      field3:
+      field4:
+      # etc...
+
+   part_substruct2:
+      field5:
+      field6:
+      # etc...
+
+   # etc...
+
+
+That assumes that the particle is split into multiple sub-structs (``part``,
+``part_substruct1``, ``part_substruct2``, etc.). It will generate the
+appropriate API and a struct containing pointers to arrays of all these structs
+in ``hyro_part_arrays_struct.h``:
+
+
+.. code-block:: C
+
+   /* File hydro_part_array_struct.h */
+
+   /* Forward declare all part structs */
+   struct part;
+   struct part_substruct1;
+   struct part_substruct2;
+   /* etc... */
+
+   struct part_arrays {
+
+     struct part *_part;
+     struct part_substruct1 *_part_substruct1;
+     struct part_substruct2 *_part_substruct2;
+     /* etc... */
+
+   };
+
+
+However, some **restrictions** apply:
 
 - You *may* choose to define a struct which is named ``part`` in your ``yaml``
   parameter file.
