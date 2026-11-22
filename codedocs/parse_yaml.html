@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>parse_yaml.py &mdash; swiftpartgen 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="render_templates.py" href="render_templates.html" />
+    <link rel="prev" title="headers.py" href="headers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            swiftpartgen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../output.html">Generated Outputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yaml_specification.html">Yaml Particle Specification File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_notes.html">Notes for Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code_documentation.html">swiftpartgen code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="headers.html">headers.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">parse_yaml.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parse_yaml.FieldEntry"><code class="docutils literal notranslate"><span class="pre">FieldEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry.__init__"><code class="docutils literal notranslate"><span class="pre">FieldEntry.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry._extract_field_data"><code class="docutils literal notranslate"><span class="pre">FieldEntry._extract_field_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry._get_field_dict"><code class="docutils literal notranslate"><span class="pre">FieldEntry._get_field_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry.generate_API"><code class="docutils literal notranslate"><span class="pre">FieldEntry.generate_API()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry.generate_declaration"><code class="docutils literal notranslate"><span class="pre">FieldEntry.generate_declaration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry.jinja_env"><code class="docutils literal notranslate"><span class="pre">FieldEntry.jinja_env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parse_yaml.FieldEntry.prohibited_name"><code class="docutils literal notranslate"><span class="pre">FieldEntry.prohibited_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="render_templates.html">render_templates.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="required_data.html">required_data.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verbosity.html">verbosity.py</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">swiftpartgen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../code_documentation.html">swiftpartgen code documentation</a></li>
+      <li class="breadcrumb-item active">parse_yaml.py</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/codedocs/parse_yaml.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-parse_yaml">
+<span id="parse-yaml-py"></span><h1>parse_yaml.py<a class="headerlink" href="#module-parse_yaml" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">parse_yaml.</span></span><span class="sig-name descname"><span class="pre">FieldEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_prohibited</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursion_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#parse_yaml.FieldEntry" title="Link to this definition"></a></dt>
+<dd><p>A class to store a particle field entry from the yaml
+input files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_prohibited</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursion_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#parse_yaml.FieldEntry.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field_name</strong> (<em>str</em>) – name of the particle field to be extracted.</p></li>
+<li><p><strong>field_props</strong> (<em>dict</em><em> or </em><em>None</em>) – a dict of the read-in yaml file specifications for this
+field. None if none were found.</p></li>
+<li><p><strong>root_struct</strong> (<em>str</em>) – name of “root” or “top level” struct this field is assigned to</p></li>
+<li><p><strong>allow_prohibited</strong> (<em>bool</em>) – Allow the creation of prohibited/reserved field names.</p></li>
+<li><p><strong>recursion_level</strong> (<em>int</em>) – Current recursion level. Used when handling structs
+defined within the parent struct and unions as an emergency
+exit in case something goes wrong. Also used to determine the
+indentation level of the contents of the sub-struct/union contents.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry._extract_field_data">
+<span class="sig-name descname"><span class="pre">_extract_field_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#parse_yaml.FieldEntry._extract_field_data" title="Link to this definition"></a></dt>
+<dd><p>Extracts the field data from the field_props dict.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry._get_field_dict">
+<span class="sig-name descname"><span class="pre">_get_field_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_struct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_checks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explicit_var_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_var_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_struct_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct_special_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#parse_yaml.FieldEntry._get_field_dict" title="Link to this definition"></a></dt>
+<dd><p>Generate a dict with this field’s properties for the jinja templates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_struct</strong> (<em>None</em><em> or </em><em>str</em>) – If not None, name of the struct this field is internal to.</p></li>
+<li><p><strong>indent_level</strong> (<em>int</em>) – Increment the indent level of the declaration. Each indent_level
+indents the line by 2 whitespaces.</p></li>
+<li><p><strong>id_checks</strong> (<em>bool</em>) – If True, add debugging checks whether the struct’s accessor IDs align</p></li>
+<li><p><strong>explicit_var_accessors</strong> (<em>bool</em>) – if True, generate getters/setters which use explicitly passed pointer
+as an argument</p></li>
+<li><p><strong>global_var_accessors</strong> (<em>bool</em>) – if True, generate getters/setters which use global variable pointer</p></li>
+<li><p><strong>part_struct_accessors</strong> (<em>bool</em>) – if True, generate getters/setters which use part structs</p></li>
+<li><p><strong>root_struct_override</strong> (<em>None</em><em> or </em><em>str</em>) – specify which root struct to use. This is needed in cases like for
+src/hydro_part.h, which doesn’t host the <cite>struct timestep_limiter</cite>
+itself, but needs to know which struct to use within the API.
+If not None, this implies to use the specialised API template
+(“use_struct”), not the default particle one.</p></li>
+<li><p><strong>root_struct_special_name</strong> (<em>None</em><em> or </em><em>str</em>) – specialised root struct name, to be used for APIs in files outside of
+src/hydro/&lt;flavour&gt;/.
+If not None, this implies to use the specialised API template, not the
+default particle one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>d</strong> – dict containing field properties prepared for use in jinja templates</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry.generate_API">
+<span class="sig-name descname"><span class="pre">generate_API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_struct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swift_header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explicit_var_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_var_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_struct_accessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_struct_special_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_checks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#parse_yaml.FieldEntry.generate_API" title="Link to this definition"></a></dt>
+<dd><p>Generate the getters and setters C code.</p>
+<p>Note: For SWIFTGPUPACKSIM, we want to allow the simultaneous
+co-existence of all 3 accessor variants, so all of
+<cite>explicit_var_accessors</cite>, <cite>global_var_accessors</cite>, and
+<cite>part_struct_accessors</cite> may be True simultaneously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_struct</strong> (<em>str</em><em> or </em><em>None</em>) – If not None, this denoted that field is a sub-field contained within
+the given parent struct.</p></li>
+<li><p><strong>swift_header</strong> (<em>bool</em>) – If True, generate API for swift, not swiftgpupacksim</p></li>
+<li><p><strong>explicit_var_accessors</strong> (<em>bool</em>) – if True, also generate getters/setters which use explicitly passed pointer
+as an argument</p></li>
+<li><p><strong>global_var_accessors</strong> (<em>bool</em>) – if True, generate getters/setters which use global variable pointer</p></li>
+<li><p><strong>part_struct_accessors</strong> (<em>bool</em>) – if True, generate getters/setters which use part structs</p></li>
+<li><p><strong>root_struct_override</strong> (<em>None</em><em> or </em><em>str</em>) – specify which root struct to use. This is needed in cases like for
+src/hydro_part.h, which doesn’t host the <cite>struct timestep_limiter</cite>
+itself, but needs to know which struct to use within the API.
+If not None, this implies to use the specialised API template
+(“use_struct”), not the default particle one.</p></li>
+<li><p><strong>root_struct_special_name</strong> (<em>None</em><em> or </em><em>str</em>) – specialised root struct name, to be used for APIs in files outside of
+src/hydro/&lt;flavour&gt;/, in particular API which uses a struct as the
+argument and accesses members of that struct.
+If not None, this implies to use the specialised API template
+(“nonpart”), not the default particle one.</p></li>
+<li><p><strong>id_checks</strong> (<em>bool</em>) – If True, add debugging checks whether the struct’s accessor IDs align</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>api</strong> – generated API C-code as a string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry.generate_declaration">
+<span class="sig-name descname"><span class="pre">generate_declaration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#parse_yaml.FieldEntry.generate_declaration" title="Link to this definition"></a></dt>
+<dd><p>Generate the field declaration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indent_level</strong> (<em>int</em>) – Increment the indent level of the declaration. Each indent_level
+indents the line by 2 whitespaces.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>decl</strong> – string containing c-code of member declarations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry.jinja_env">
+<span class="sig-name descname"><span class="pre">jinja_env</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;jinja2.environment.Environment</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#parse_yaml.FieldEntry.jinja_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parse_yaml.FieldEntry.prohibited_name">
+<span class="sig-name descname"><span class="pre">prohibited_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#parse_yaml.FieldEntry.prohibited_name" title="Link to this definition"></a></dt>
+<dd><p>Check whether a field name is prohibited/reserved.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="headers.html" class="btn btn-neutral float-left" title="headers.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="render_templates.html" class="btn btn-neutral float-right" title="render_templates.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Mladen Ivkovic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

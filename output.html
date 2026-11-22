@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generated Outputs &mdash; swiftpartgen 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Yaml Particle Specification File" href="yaml_specification.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            swiftpartgen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Generated Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-accessor-variants">Data Accessor Variants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#part-struct-accessors-part-struct-accessors">part struct accessors (<code class="docutils literal notranslate"><span class="pre">--part-struct-accessors</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#explicit-var-accessors-explicit-var-accessors">explicit var accessors (<code class="docutils literal notranslate"><span class="pre">--explicit-var-accessors</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-var-accessors-global-var-accessors">global var accessors (<code class="docutils literal notranslate"><span class="pre">--global-var-accessors</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generated-api">Generated API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scalars">Scalars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrays">Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generated-files">Generated Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="yaml_specification.html">Yaml Particle Specification File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_notes.html">Notes for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_documentation.html">swiftpartgen code documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">swiftpartgen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Generated Outputs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/output.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="generated-outputs">
+<span id="outputs"></span><h1>Generated Outputs<a class="headerlink" href="#generated-outputs" title="Link to this heading"></a></h1>
+<section id="data-accessor-variants">
+<span id="accessor-variants"></span><h2>Data Accessor Variants<a class="headerlink" href="#data-accessor-variants" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">swiftpartgen</span></code> offers three variants of accessing the getters/setters API:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#part-struct-accessors"><span class="std std-ref">part struct accessors</span></a></p></li>
+<li><p><a class="reference internal" href="#explicit-var-accessors"><span class="std std-ref">explicit accessors</span></a></p></li>
+<li><p><a class="reference internal" href="#global-var-accessors"><span class="std std-ref">global_accessors</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When running <code class="docutils literal notranslate"><span class="pre">swiftpartgen</span></code>, at least one of those flags must be selected.
+However, you may also select several of these flags. In that case, all API
+functions will get a suffix (<code class="docutils literal notranslate"><span class="pre">_part_struct</span></code>, <code class="docutils literal notranslate"><span class="pre">_explicit</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">_global</span></code>, respectively) to enable unique API function names.</p>
+</div>
+<section id="part-struct-accessors-part-struct-accessors">
+<span id="part-struct-accessors"></span><h3>part struct accessors (<code class="docutils literal notranslate"><span class="pre">--part-struct-accessors</span></code>)<a class="headerlink" href="#part-struct-accessors-part-struct-accessors" title="Link to this heading"></a></h3>
+<p>Generated getters/setters require a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part*</span> <span class="pre">p</span></code> to access correct
+particle fields. If the field is not contained within <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span></code> itself,
+but some other particle sub-struct, it will access it using the particle’s index
+in the global particle arrays as well as a pointer to all global particle
+arrays, which are two additional variables automatically added to the
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span></code>.</p>
+<p><strong>Minimal Example</strong>: For a data layout of the form</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">x</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+
+<span class="nt">substruct1</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">y</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+</pre></div>
+</div>
+<p>the resulting header file will be (much other generated code omitted for demonstrative
+purposes):</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="cm">/*! offset/index of particle in cell particle data array */</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_cell_offset</span><span class="p">;</span>
+
+<span class="w">  </span><span class="cm">/*! pointer to particle data array struct of the cell this particle is located in */</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="o">*</span><span class="w"> </span><span class="n">_cell_part_arrays</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_x</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_x</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_y</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_cell_part_arrays</span><span class="o">-&gt;</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_cell_offset</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_y</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_cell_part_arrays</span><span class="o">-&gt;</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_cell_offset</span><span class="p">;</span>
+<span class="w">  </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="explicit-var-accessors-explicit-var-accessors">
+<span id="explicit-var-accessors"></span><h3>explicit var accessors (<code class="docutils literal notranslate"><span class="pre">--explicit-var-accessors</span></code>)<a class="headerlink" href="#explicit-var-accessors-explicit-var-accessors" title="Link to this heading"></a></h3>
+<p>Generated getters/setters require a struct which holds pointers to all global
+particle arrays as well as the particle’s index in that array to be passed
+explicitly as arguments. The header file containin the definition of the struct
+holding pointers to all global particle arrays is automatically generated too.</p>
+<p><strong>Minimal Example</strong>: For a data layout of the form</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">x</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+
+<span class="nt">substruct1</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">y</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+</pre></div>
+</div>
+<p>the resulting header file will be (much other generated code omitted for demonstrative
+purposes):</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_y</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_x</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">part_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="o">-&gt;</span><span class="n">_part</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">part_s</span><span class="o">-&gt;</span><span class="n">_x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_x</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">part_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="o">-&gt;</span><span class="n">_part</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="n">part_s</span><span class="o">-&gt;</span><span class="n">_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_y</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="o">-&gt;</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_y</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="w"> </span><span class="o">*</span><span class="kr">restrict</span><span class="w"> </span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="o">-&gt;</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="global-var-accessors-global-var-accessors">
+<span id="global-var-accessors"></span><h3>global var accessors (<code class="docutils literal notranslate"><span class="pre">--global-var-accessors</span></code>)<a class="headerlink" href="#global-var-accessors-global-var-accessors" title="Link to this heading"></a></h3>
+<p>Generated getters/setters only require a particle’s index in the global particle
+arrays to access its data. The global particle arrays are kept as a global
+variable somewhere in the code.</p>
+<p><strong>Minimal Example</strong>: For a data layout of the form</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">x</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+
+<span class="nt">substruct1</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">y</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+</pre></div>
+</div>
+<p>the resulting header file will be (much other generated code omitted for demonstrative
+purposes):</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">_y</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_x</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">part_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_part_arrays</span><span class="p">.</span><span class="n">_part</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">part_s</span><span class="o">-&gt;</span><span class="n">_x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of x.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_x</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">part_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_part_arrays</span><span class="p">.</span><span class="n">_part</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="n">part_s</span><span class="o">-&gt;</span><span class="n">_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief get y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">  </span><span class="n">part_get_y_global</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_part_arrays</span><span class="p">.</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief set the value of y.</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">void</span>
+<span class="w">  </span><span class="n">part_set_y</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">substruct1</span><span class="o">*</span><span class="w"> </span><span class="kr">restrict</span><span class="w"> </span><span class="n">substruct1_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_part_arrays</span><span class="p">.</span><span class="n">_substruct1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pind</span><span class="p">;</span>
+<span class="w">  </span><span class="n">substruct1_s</span><span class="o">-&gt;</span><span class="n">_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="generated-api">
+<h2>Generated API<a class="headerlink" href="#generated-api" title="Link to this heading"></a></h2>
+<section id="scalars">
+<h3>Scalars<a class="headerlink" href="#scalars" title="Link to this heading"></a></h3>
+<p>For any scalar field <code class="docutils literal notranslate"><span class="pre">X</span></code> (e.g. a <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code>,
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">&lt;something&gt;</span></code>, etc.), the following API will be generated:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_X(...)</span></code>: returns the value of <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_X_p(...)</span></code>: returns a pointer to <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_const_X_p(...)</span></code>: returns a <code class="docutils literal notranslate"><span class="pre">const</span></code> pointer to <code class="docutils literal notranslate"><span class="pre">X</span></code> for
+read-only access.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_set_X(...,</span> <span class="pre">&lt;type</span> <span class="pre">of</span> <span class="pre">X&gt;</span> <span class="pre">val)</span></code>: set a value for <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
+</ul>
+<p>See the documentation on the <a class="reference internal" href="yaml_specification.html#yaml-particle-specification"><span class="std std-ref">yaml particle data specification</span></a> for details on limitations.</p>
+</section>
+<section id="arrays">
+<h3>Arrays<a class="headerlink" href="#arrays" title="Link to this heading"></a></h3>
+<p>For any array <code class="docutils literal notranslate"><span class="pre">ARR</span></code>, (e.g. <code class="docutils literal notranslate"><span class="pre">double[3]</span></code>, <code class="docutils literal notranslate"><span class="pre">int[2]</span></code>, etc.), the following API
+will be generated:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_ARR(...)</span></code>: returns the pointer to the start of the array <code class="docutils literal notranslate"><span class="pre">ARR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_const_ARR(...)</span></code>: returns a <code class="docutils literal notranslate"><span class="pre">const</span></code> pointer to the start of the array <code class="docutils literal notranslate"><span class="pre">ARR</span></code> for read-only access</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_get_ARR_ind(...,</span> <span class="pre">int</span> <span class="pre">ind)</span></code>: returns <code class="docutils literal notranslate"><span class="pre">ARR[ind]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_set_ARR(...,</span> <span class="pre">&lt;type</span> <span class="pre">of</span> <span class="pre">ARR&gt;*</span> <span class="pre">newarr)</span></code>: sets all the values of <code class="docutils literal notranslate"><span class="pre">ARR</span></code> to the values of <code class="docutils literal notranslate"><span class="pre">newarr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_set_ARR_ind(...,</span> <span class="pre">int</span> <span class="pre">ind,</span> <span class="pre">&lt;type</span> <span class="pre">of</span> <span class="pre">ARR&gt;*</span> <span class="pre">newarr)</span></code>: sets the value of the <code class="docutils literal notranslate"><span class="pre">ARR[ind]</span></code> to <code class="docutils literal notranslate"><span class="pre">newarr[ind]</span></code></p></li>
+</ul>
+<p>This also works for multi-dimensional arrays, e.g. <code class="docutils literal notranslate"><span class="pre">double[3][3]</span></code>, with the caveat that accordingly
+more indices <code class="docutils literal notranslate"><span class="pre">ind</span></code> will be added.</p>
+</section>
+</section>
+<section id="generated-files">
+<span id="id1"></span><h2>Generated Files<a class="headerlink" href="#generated-files" title="Link to this heading"></a></h2>
+<p>When generating <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code> header output (<code class="docutils literal notranslate"><span class="pre">--swift</span></code> flag or default run),
+<code class="docutils literal notranslate"><span class="pre">swiftpartgen</span></code> will generate the following files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">src/hydro/&lt;SPH_FLAVOUR&gt;/hydro_part.h</span></code>: Header containing one or more
+<code class="docutils literal notranslate"><span class="pre">struct</span></code> s holding particle data and their respective getters/setters API</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/hydro/&lt;SPH_FLAVOUR&gt;/hydro_part_arrays_struct.h</span></code>: Header containing the
+definition of a <code class="docutils literal notranslate"><span class="pre">struct</span></code> which holds pointers to all <code class="docutils literal notranslate"><span class="pre">struct</span></code> s which hold
+particle data.</p></li>
+</ul>
+<p>When running with the <code class="docutils literal notranslate"><span class="pre">--swift</span> <span class="pre">--full</span></code> options, additionally the following
+files will be generated:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">src/hydro_part.h</span></code>: Top-level <code class="docutils literal notranslate"><span class="pre">hydro_part.h</span></code>. This header includes the
+appropriate specific headers for different hydro flavours based on SWIFT
+configuration, as well as getters/setters for timestep limiter and RT
+timestepping data related structs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/timestep_limiter_struct.h</span></code>: Contains the definition of the
+<code class="docutils literal notranslate"><span class="pre">timestep_limiter_data</span></code> struct and associated getters/setters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/rt_struct.h</span></code>: Contains the definition of the <code class="docutils literal notranslate"><span class="pre">rt_timestepping_data</span></code>
+struct and associated getters/setters.</p></li>
+</ul>
+<p>When generating <code class="docutils literal notranslate"><span class="pre">SWIFTGPUPACKSIM</span></code> header output (<code class="docutils literal notranslate"><span class="pre">--gpupacksim</span></code> flag), it
+will create the following files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hydro_part.h</span></code>: (same as for <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code>) Header containing one or more <code class="docutils literal notranslate"><span class="pre">struct</span></code> s
+holding particle data and their respective getters/setters API</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hydro_part_arrays_struct.h</span></code>: (same as for <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code>) Header containing the
+definition of a <code class="docutils literal notranslate"><span class="pre">struct</span></code> which holds pointers to all <code class="docutils literal notranslate"><span class="pre">struct</span></code> s which hold
+particle data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parts.h</span></code>: Functions related to dealing with particles, such as allocating
+all arrays etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hydro_part_arrays_flush.h</span></code>: Functions related to dealing with flushing
+particle arrays from cache.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yaml_specification.html" class="btn btn-neutral float-right" title="Yaml Particle Specification File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Mladen Ivkovic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

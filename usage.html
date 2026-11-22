@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; swiftpartgen 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Generated Outputs" href="output.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            swiftpartgen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#swift">SWIFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#swiftgpupacksim">SWIFTGPUPACKSIM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="output.html">Generated Outputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yaml_specification.html">Yaml Particle Specification File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_notes.html">Notes for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_documentation.html">swiftpartgen code documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">swiftpartgen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<section id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<p>The basic usage is</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>swiftpartgen.py<span class="w"> </span><span class="o">[</span>--swift<span class="o">]</span><span class="w"> </span><span class="o">[</span>--gpupacksim<span class="o">]</span><span class="w"> </span><span class="o">[</span>--full<span class="o">]</span><span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>OUTPUT_DIR<span class="o">]</span><span class="w"> </span><span class="o">[</span>--explicit-var-accessors<span class="o">]</span><span class="w"> </span><span class="o">[</span>--global-var-accessors<span class="o">]</span><span class="w"> </span><span class="o">[</span>--part-struct-accessors<span class="o">]</span><span class="w"> </span>input_file
+</pre></div>
+</div>
+<p>At least one of <code class="docutils literal notranslate"><span class="pre">--explicit-var-accessors</span></code>, <code class="docutils literal notranslate"><span class="pre">--global-var-accessors</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">--part-struct-accessors</span></code> must be chosen. See the <a class="reference internal" href="output.html#accessor-variants"><span class="std std-ref">Section on accessors</span></a> for more details. For use of the generated header files in
+<code class="docutils literal notranslate"><span class="pre">SWIFT</span></code>, the <code class="docutils literal notranslate"><span class="pre">--global-var-accessors</span></code> flag is required.</p>
+<p>Use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>swiftpartgen.py<span class="w"> </span>-h
+</pre></div>
+</div>
+<p>to see all available command line options.</p>
+<p>By default, this script will create files used by <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code>. If you want to
+produce header files intended for use in the <code class="docutils literal notranslate"><span class="pre">SWIFTGPUPACKSIM</span></code> code, use the
+<code class="docutils literal notranslate"><span class="pre">--gpupacksim</span></code> flag.</p>
+<p>As input, the script requires a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file specifying the particle struct and
+field layouts. Some are provided in the <code class="docutils literal notranslate"><span class="pre">input/</span></code> directory. For further
+specification, see the <a class="reference internal" href="yaml_specification.html#yaml-particle-specification"><span class="std std-ref">documentation on yaml specification</span></a>.</p>
+<section id="swift">
+<h3>SWIFT<a class="headerlink" href="#swift" title="Link to this heading"></a></h3>
+<p>To generate header files for a specific hydro particle flavour for use in <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code>
+(i.e. files that will go in <code class="docutils literal notranslate"><span class="pre">src/hydro/&lt;SPH-flavour&gt;</span></code>), use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>swiftpartgen.py<span class="w"> </span>--global-var-accessor<span class="w"> </span>input.yml
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">input.yml</span></code> should be the <code class="docutils literal notranslate"><span class="pre">yaml</span></code> parameter file containing all the
+relevant particle data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All SWIFT hydro particle flavours have pre-existing templates stored in
+<code class="docutils literal notranslate"><span class="pre">input/hydro/</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SWIFT is implemented to use <code class="docutils literal notranslate"><span class="pre">--global-var-accessors</span></code>.</p>
+</div>
+<p>To generate <strong>all</strong> files for a specific hydro particle flavour (see
+<a class="reference internal" href="output.html#generated-files"><span class="std std-ref">Generated Files</span></a> for details), add the <code class="docutils literal notranslate"><span class="pre">--full</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>swiftpartgen.py<span class="w"> </span>--global-var-accessor<span class="w"> </span>--full<span class="w"> </span>input.yml
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to generate the outputs for all particle flavours, you may want
+to take advantage of the <code class="docutils literal notranslate"><span class="pre">swiftpartgen/generate_all_swift_hydro_particles.sh</span></code>
+script.</p>
+</div>
+</section>
+<section id="swiftgpupacksim">
+<h3>SWIFTGPUPACKSIM<a class="headerlink" href="#swiftgpupacksim" title="Link to this heading"></a></h3>
+<p>To generate header files for a specific hydro particle flavour for use in
+<code class="docutils literal notranslate"><span class="pre">SWIFTGPUPACKSIM</span></code>, (i.e. files that will go in <code class="docutils literal notranslate"><span class="pre">sim/src/realisations/&lt;flavour&gt;</span></code>),
+use e.g.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>swiftpartgen.py<span class="w"> </span>--gpupacksim<span class="w"> </span>--global-var-accessor<span class="w"> </span>input.yml
+</pre></div>
+</div>
+<p>Again, <code class="docutils literal notranslate"><span class="pre">input.yml</span></code> should be the <code class="docutils literal notranslate"><span class="pre">yaml</span></code> parameter file containing all the
+relevant particle data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many pre-existing templates for variations for the SPHENIX particle are
+stored in <code class="docutils literal notranslate"><span class="pre">input/hydro/sphenix_splitting</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to generate the outputs for all SPHENIX splitting variants, you
+may want to take advantage of the
+<code class="docutils literal notranslate"><span class="pre">swiftpartgen/generate_all_sphenix_header_variations.sh</span></code> script.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="output.html" class="btn btn-neutral float-right" title="Generated Outputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Mladen Ivkovic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

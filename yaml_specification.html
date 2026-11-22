@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaml Particle Specification File &mdash; swiftpartgen 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notes for Developers" href="developer_notes.html" />
+    <link rel="prev" title="Generated Outputs" href="output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            swiftpartgen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output.html">Generated Outputs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Yaml Particle Specification File</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file-metadata">File Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#particle-structs">Particle Structs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-and-array-native-data-types">Scalar and Array Native Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nested-structs">Nested Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unions">Unions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ifdef-and-ifndef-macros">IFDEF and IFNDEF macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrays">Arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reserved-names">Reserved names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#splitting-particle-data-over-multiple-structs">Splitting Particle Data Over Multiple Structs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer_notes.html">Notes for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_documentation.html">swiftpartgen code documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">swiftpartgen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Yaml Particle Specification File</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/yaml_specification.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="yaml-particle-specification-file">
+<span id="yaml-particle-specification"></span><h1>Yaml Particle Specification File<a class="headerlink" href="#yaml-particle-specification-file" title="Link to this heading"></a></h1>
+<p>The header files containing particle structs are generated using specifications
+in <code class="docutils literal notranslate"><span class="pre">yaml</span></code> files. Some defaults are stored in <code class="docutils literal notranslate"><span class="pre">input/</span></code>.</p>
+<p>The specification requires you to provide all particle fields necessary for a
+specific particle flavour realisation. The script will then generate header
+files required to incorporate those structs into <code class="docutils literal notranslate"><span class="pre">SWIFT</span></code> and <code class="docutils literal notranslate"><span class="pre">SWIFTGPUPACKSIM</span></code>.</p>
+<p>In general, you need to provide at least 2 items:</p>
+<ul class="simple">
+<li><p>a <a class="reference internal" href="#file-metadata"><span class="std std-ref">“metadata” item</span></a>, containing file metadata</p></li>
+<li><p>one (or arbitrarily many) <a class="reference internal" href="#id2"><span class="std std-ref">structs containing particle fields</span></a></p></li>
+</ul>
+<p>Here’s a minimal example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">authors</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2026</span><span class="nv"> </span><span class="s">John</span><span class="nv"> </span><span class="s">Doe&quot;</span><span class="w">       </span><span class="c1"># year and authors of file, to be inserted into the license</span>
+<span class="w">  </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_sph_flavour_name</span><span class="w">   </span><span class="c1"># name of the SPH flavour. Mainly used in header guard macro</span>
+
+<span class="nt">part_struct1_name</span><span class="p">:</span><span class="w">               </span><span class="c1"># name of struct (e.g. &#39;part&#39;, &#39;density&#39;, &#39;force&#39;...)</span>
+<span class="w">  </span><span class="nt">field1_name</span><span class="p">:</span><span class="w">                   </span><span class="c1"># name of particle field (e.g. &#39;x&#39;, &#39;m&#39;, &#39;h&#39;...)</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATA_TYPE</span><span class="w">              </span><span class="c1"># (Optional) C data type of the field. E.g. float,</span>
+<span class="w">                                 </span><span class="c1">#   double, int, long long, timebin_t...</span>
+<span class="w">                                 </span><span class="c1">#   If not provided, defaults to &#39;float&#39;.</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N</span><span class="w">                      </span><span class="c1"># (Optional) If &gt; 1, field is assumed to be fixed size array.</span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">documentation text</span><span class="w">      </span><span class="c1"># (Optional) Documents particle data field.</span>
+</pre></div>
+</div>
+<section id="file-metadata">
+<span id="id1"></span><h2>File Metadata<a class="headerlink" href="#file-metadata" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadata</span></code> item in the <code class="docutils literal notranslate"><span class="pre">yaml</span></code> specification file carries all file metadata,
+such as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">authors</span></code>: Year + author names + emails to be inserted into the GPL3 license
+in the file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flavour</span></code>: The name of the SPH flavour contained in this file. Mainly used to
+define a header guard and in the file description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc</span></code>: File documentation. What will go in the <code class="docutils literal notranslate"><span class="pre">/**</span> <span class="pre">&#64;file</span></code> doxygen
+documentation of the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">includes</span></code>: list of headers to include. If this field is not provided, a
+default will be used, stored in <code class="docutils literal notranslate"><span class="pre">input/hydro/default_hydro_headers_swift.h</span></code> and
+<code class="docutils literal notranslate"><span class="pre">input/hydro/default_hydro_headers_swiftgpupacksim.h</span></code>, respectively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">includes_add</span></code>: Rather than providing a full list of includes, only add these
+to the default selection.</p></li>
+</ul>
+<p>Here’s an example metadata setup:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">authors</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2026</span><span class="nv"> </span><span class="s">John</span><span class="nv"> </span><span class="s">Doe&quot;</span><span class="w">          </span><span class="c1"># year and authors of file, to be inserted into the license</span>
+<span class="w">  </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_sph_flavour_name</span><span class="w">      </span><span class="c1"># name of the SPH flavour. Mainly used in header guard macro</span>
+<span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">                            </span><span class="c1"># (Optional) file documentation</span>
+<span class="w">    </span><span class="no">This file contains X, Y, and Z.</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span><span class="w">                         </span><span class="c1"># (Optional) headers to be included. If not provided, default</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">a.h</span><span class="w">                           </span><span class="c1">#    headers will be used, read in from</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b.h</span><span class="w">                           </span><span class="c1">#    `input/hydro/default_hydro_headers_swift.h`</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;stdio.h&gt;</span><span class="w">                     </span><span class="c1">#    or `input/hydro/default_hydro_headers_swiftgpupacksim.h`.</span>
+<span class="w">  </span><span class="nt">includes_add</span><span class="p">:</span><span class="w">                     </span><span class="c1"># (Optional) Additional header files to include aside from the</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">a.h</span><span class="w">                           </span><span class="c1">#    &quot;default&quot; ones (see ``includes`` field)</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b.h</span><span class="w">                           </span><span class="c1">#  ! WARNING: Cannot be used together with `includes` parameter.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;stdio.h&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="particle-structs">
+<h2>Particle Structs<a class="headerlink" href="#particle-structs" title="Link to this heading"></a></h2>
+<p>Your <code class="docutils literal notranslate"><span class="pre">yaml</span></code> specification file must contain at least one particle struct
+containing fields, but can contain as many as you like.</p>
+<p>A new particle struct containing data is defined by adding a new top-level item
+(= item with no indent). To add fields (=actual data) to it, see instructions
+below.</p>
+<section id="scalar-and-array-native-data-types">
+<h3>Scalar and Array Native Data Types<a class="headerlink" href="#scalar-and-array-native-data-types" title="Link to this heading"></a></h3>
+<p>The general specification requirement is as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">authors</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2026</span><span class="nv"> </span><span class="s">John</span><span class="nv"> </span><span class="s">Doe&quot;</span><span class="w">       </span><span class="c1"># year and authors of file, to be inserted into the license</span>
+<span class="w">  </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_sph_flavour_name</span><span class="w">   </span><span class="c1"># name of the SPH flavour. Mainly used in header guard macro</span>
+
+<span class="nt">part_struct1_name</span><span class="p">:</span><span class="w">               </span><span class="c1"># name of struct (e.g. &#39;part&#39;, &#39;density&#39;, &#39;force&#39;...)</span>
+<span class="w">  </span><span class="nt">field1_name</span><span class="p">:</span><span class="w">                   </span><span class="c1"># name of particle field (e.g. &#39;x&#39;, &#39;m&#39;, &#39;h&#39;...)</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATA_TYPE</span><span class="w">              </span><span class="c1"># (Optional) C data type of the field. E.g. float,</span>
+<span class="w">                                 </span><span class="c1">#     double, int, long long, timebin_t...</span>
+<span class="w">                                 </span><span class="c1">#   ! WARNING: If not provided, defaults to &#39;float&#39;. !</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N</span><span class="w">                      </span><span class="c1"># (Optional) If &gt; 1, field is assumed to be fixed size array,</span>
+<span class="w">                                 </span><span class="c1">#     e.g. `DATA_TYPE field1_name[N];`</span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">documentation text</span><span class="w">      </span><span class="c1"># (Optional) Documentation of the particle data field.</span>
+
+<span class="w">  </span><span class="c1"># some more concrete examples.</span>
+<span class="w">  </span><span class="nt">x</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">double</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the particle position</span>
+<span class="w">  </span><span class="nt">m</span><span class="p">:</span><span class="w"> </span><span class="c1"># no further specification works too. Defaults to float.</span>
+<span class="w">  </span><span class="nt">u</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">the comoving specific internal energy</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">long long</span>
+
+
+<span class="nt">part_struct2_name</span><span class="p">:</span><span class="w">              </span><span class="c1"># name of the second struct containing (parts</span>
+<span class="w">                                </span><span class="c1">#    of) particle data.</span>
+<span class="w">  </span><span class="nt">field2_name</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># etc etc</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>IMPORTANT</strong>:</p>
+<ul>
+<li><p>The top-level entries in the indent hierarchies will be transformed into
+separate structs with that name.</p></li>
+<li><p>An exception is the group <code class="docutils literal notranslate"><span class="pre">metadata</span></code>, which should contain the file
+metadata and will not be turned into a struct.</p></li>
+<li><p>No duplicate names of particle fields are allowed – not even between two
+different structs!</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If there are several top level/root particle data structs with identical
+names, the yaml reader will only keep the last one.</p></li>
+<li><p>If there are several fields with identical names, even if they are stored in
+different top level/root particle data structs, this will cause name clashes
+with the generated API.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</section>
+<section id="nested-structs">
+<h3>Nested Structs<a class="headerlink" href="#nested-structs" title="Link to this heading"></a></h3>
+<p>To specify a struct defined within a parent particle struct, use the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parent_struct</span><span class="p">:</span><span class="w">         </span><span class="c1"># such as part, xpart, ...</span>
+<span class="w">  </span><span class="nt">your_struct_name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">struct</span>
+<span class="w">    </span><span class="nt">contents</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">a</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">documentation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">&#39;your_struct_name&#39;</span><span class="nv"> </span><span class="s">struct&quot;</span>
+<span class="w">      </span><span class="nt">b</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">double</span>
+<span class="w">        </span><span class="nt">documentation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">second</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">&#39;your_struct_name&#39;</span><span class="nv"> </span><span class="s">struct&quot;</span>
+</pre></div>
+</div>
+<p>this results in</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cm">/* header... */</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">parent_struct</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="cm">/*! the first field of &#39;your_struct_name&#39; struct */</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/*! the second field of &#39;your_struct_name&#39; struct */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">your_struct_name</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* getters and setters... */</span>
+</pre></div>
+</div>
+<p>To use a struct which is defined somewhere else as a data type, just add it as a
+type descriptor. Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parent_struct</span><span class="p">:</span><span class="w">         </span><span class="c1"># such as part, xpart, ...</span>
+<span class="w">  </span><span class="nt">timestep_data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">struct limiter_timestep_data;</span>
+</pre></div>
+</div>
+<p>results in:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">parent_struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">limiter_timestep_data</span><span class="w"> </span><span class="n">timestep_data</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="unions">
+<h3>Unions<a class="headerlink" href="#unions" title="Link to this heading"></a></h3>
+<p>To specify a union within a parent particle struct, use the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">parent_struct</span><span class="p">:</span><span class="w">         </span><span class="c1"># such as part, xpart, ...</span>
+<span class="w">  </span><span class="nt">name_placeholder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">union</span>
+<span class="w">    </span><span class="nt">contents</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">a</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">documentation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">union&quot;</span>
+<span class="w">      </span><span class="nt">b</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">double</span>
+<span class="w">        </span><span class="nt">documentation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">second</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">union&quot;</span>
+</pre></div>
+</div>
+<p>This shoudl result in:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">parent_struct</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">   </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="cm">/*! the first field of union */</span>
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">_a</span><span class="p">;</span>
+
+<span class="w">     </span><span class="cm">/*! the second field of union */</span>
+<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">_b</span><span class="p">;</span>
+<span class="w">   </span><span class="p">};</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">name_placeholder</span></code> name will be unused in the resulting header file.
+However, we need a unique identifier for the <code class="docutils literal notranslate"><span class="pre">yaml</span></code> syntax - otherwise, the
+content will be overwritten by the last element with that name and the others
+discarded. So just make sure you give them any unique identifier.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unions may contain further unions or structs as their members.</p>
+</div>
+</section>
+<section id="enums">
+<h3>enums<a class="headerlink" href="#enums" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Enum</span></code> s (enumerations) are allowed as a data type for field members if they
+are defined somewhere else, i.e. this script will not provide a definition for
+them in the resulting header files.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">my_enum</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enum color</span>
+<span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some enumeration, defined elsewhere</span>
+</pre></div>
+</div>
+<p>Results in:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="cm">/*! some enumeration, defined elsewhere */</span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">my_enum</span><span class="p">;</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="ifdef-and-ifndef-macros">
+<h3>IFDEF and IFNDEF macros<a class="headerlink" href="#ifdef-and-ifndef-macros" title="Link to this heading"></a></h3>
+<p>You may want to hide some particle fields behind a macro guard. To do so, use
+the <code class="docutils literal notranslate"><span class="pre">ifdef:</span> <span class="pre">MACRO_NAME</span></code> keyword or <code class="docutils literal notranslate"><span class="pre">ifndef:</span> <span class="pre">MACRO_NAME</span></code> keyword,
+respectively. Obviously, you may only use one for each member, not both.</p>
+<p>However, to have functional getters and setters API when the macros aren’t set,
+we need to provide a return value for the getters. By default, the values will
+be set to the max value of the data type (e.g. <code class="docutils literal notranslate"><span class="pre">FLT_MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">INT_MAX</span></code>, etc.).
+If you want to modify that value, provide the <code class="docutils literal notranslate"><span class="pre">ifdef_return_val</span></code> parameter.</p>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">debug_counter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">    </span><span class="nt">ifdef</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SWIFT_DEBUG_CHECKS</span>
+
+<span class="w">  </span><span class="nt">rt_time_bin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">    </span><span class="nt">ifndef</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RT_NONE</span><span class="w">        </span><span class="c1"># &lt;- using ifndef, not ifdef</span>
+
+<span class="w">  </span><span class="nt">collect_mpi</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+<span class="w">    </span><span class="nt">ifdef</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WITH_MPI</span>
+<span class="w">    </span><span class="nt">ifdef_return_val</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.f</span><span class="w">  </span><span class="c1"># &lt;- specific value to return</span>
+</pre></div>
+</div>
+<p>This results in:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cm">/* ... header and definitions... */</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">int</span>
+<span class="w">   </span><span class="n">part_get_debug_counter</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#ifdef SWIFT_DEBUG_CHECKS</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_debug_counter</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">int</span>
+<span class="w">   </span><span class="n">part_get_rt_time_bin</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#ifndef RT_NONE</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_rt_time_bin</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="n">INLINE</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">   </span><span class="n">part_get_collect_mpi</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#ifdef WITH_MPI</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">_collect_mpi</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">1.f</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+
+<span class="cm">/* ... more getters and setters ... */</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is currently not implemented for unions.</p>
+</div>
+</section>
+<section id="arrays">
+<h3>Arrays<a class="headerlink" href="#arrays" title="Link to this heading"></a></h3>
+<p>To create fields which are fixed-size arrays, add the <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter to the
+<code class="docutils literal notranslate"><span class="pre">yaml</span></code> file. For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">v</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="w">  </span><span class="nt">radiation_energy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RT_NGROUPS</span>
+
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3,3</span>
+</pre></div>
+</div>
+<p>results in</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">radiation_energy</span><span class="p">[</span><span class="n">RT_NGROUPS</span><span class="p">];</span>
+
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">matrix</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reserved-names">
+<h3>Reserved names<a class="headerlink" href="#reserved-names" title="Link to this heading"></a></h3>
+<p>To ensure functionality, some names are reserved and cannot be used as names for
+fields. These are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">doc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">documentation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">union</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_offset</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_part_data</span></code></p></li>
+</ul>
+</section>
+<section id="splitting-particle-data-over-multiple-structs">
+<span id="id2"></span><h3>Splitting Particle Data Over Multiple Structs<a class="headerlink" href="#splitting-particle-data-over-multiple-structs" title="Link to this heading"></a></h3>
+<p>You may want to split the particle data such that they are contained within
+multiple structs instead of a single one. To do so, simply add further groups at
+the same level as the <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span></code> in your <code class="docutils literal notranslate"><span class="pre">yaml</span></code> parameter file, e.g. like</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">part</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">field1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">double</span>
+<span class="w">   </span><span class="nt">field2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+
+<span class="w">   </span><span class="c1"># etc...</span>
+
+<span class="nt">part_substruct1</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">field3</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">field4</span><span class="p">:</span>
+<span class="w">   </span><span class="c1"># etc...</span>
+
+<span class="nt">part_substruct2</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">field5</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">field6</span><span class="p">:</span>
+<span class="w">   </span><span class="c1"># etc...</span>
+
+<span class="c1"># etc...</span>
+</pre></div>
+</div>
+<p>That assumes that the particle is split into multiple sub-structs (<code class="docutils literal notranslate"><span class="pre">part</span></code>,
+<code class="docutils literal notranslate"><span class="pre">part_substruct1</span></code>, <code class="docutils literal notranslate"><span class="pre">part_substruct2</span></code>, etc.). It will generate the
+appropriate API and a struct containing pointers to arrays of all these structs
+in <code class="docutils literal notranslate"><span class="pre">hyro_part_arrays_struct.h</span></code>:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cm">/* File hydro_part_array_struct.h */</span>
+
+<span class="cm">/* Forward declare all part structs */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">part_substruct1</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">part_substruct2</span><span class="p">;</span>
+<span class="cm">/* etc... */</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">part_arrays</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part</span><span class="w"> </span><span class="o">*</span><span class="n">_part</span><span class="p">;</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part_substruct1</span><span class="w"> </span><span class="o">*</span><span class="n">_part_substruct1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">part_substruct2</span><span class="w"> </span><span class="o">*</span><span class="n">_part_substruct2</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* etc... */</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>However, some <strong>restrictions</strong> apply:</p>
+<ul>
+<li><p>You <em>may</em> choose to define a struct which is named <code class="docutils literal notranslate"><span class="pre">part</span></code> in your <code class="docutils literal notranslate"><span class="pre">yaml</span></code>
+parameter file.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If you do, it <strong>must</strong> be the first defined struct <a class="footnote-reference brackets" href="#part-first" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p></li>
+<li><p>If you do, <code class="docutils literal notranslate"><span class="pre">swiftpartgen</span></code> will also automatically generate getter
+functions to all other structs holding particle data as defined in the yaml
+file.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>You <em>may</em> choose <em>not</em> to define a struct which is named <code class="docutils literal notranslate"><span class="pre">part</span></code> in your
+<code class="docutils literal notranslate"><span class="pre">yaml</span></code> parameter file.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If you don’t, one will be generated for you <a class="footnote-reference brackets" href="#part-autogen" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
+<li><p>If you don’t, the script will also automatically generate getter functions to
+all other structs holding particle data as defined in the yaml file.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p class="rubric">footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="part-first" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>This is necessary for compatibility with the
+<code class="docutils literal notranslate"><span class="pre">--part-struct-accessor</span></code> API, wherein particle data is accessed using a
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span> <span class="pre">p</span></code>. In the body of the getters/setters, the <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span> <span class="pre">p</span></code>
+will be accessed to find the index of this particle in the global particle
+arrays or this cell’s particle array; In order to do so, the <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span>
+<span class="pre">p</span></code> needs to be defined beforehand, and hence needs to be at the start of the
+file.</p>
+</aside>
+<aside class="footnote brackets" id="part-autogen" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p>This is again for compatibility with the
+<code class="docutils literal notranslate"><span class="pre">--part-struct-accessor</span></code> API, which requires a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">part</span></code> to exist.
+In the future, this consequence may be removed.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="output.html" class="btn btn-neutral float-left" title="Generated Outputs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="developer_notes.html" class="btn btn-neutral float-right" title="Notes for Developers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Mladen Ivkovic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
